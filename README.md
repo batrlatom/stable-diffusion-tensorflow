@@ -41,6 +41,29 @@ img = generator.generate(
 Image.fromarray(img[0]).save("output.png")
 ```
 
+4) Using mixed precission:
+```python
+from stable_diffusion_tf.stable_diffusion import Text2Image
+from PIL import Image
+from tensorflow.keras import mixed_precision
+
+mixed_precision.set_global_policy('mixed_float16')
+
+generator = Text2Image( 
+    img_height=512,
+    img_width=512,
+    jit_compile=False,
+)
+img = generator.generate(
+    "An astronaut riding a horse",
+    num_steps=50,
+    unconditional_guidance_scale=7.5,
+    temperature=1,
+	batch_size=1,
+)
+Image.fromarray(img[0]).save("output.png")
+```
+
 ## Example outputs 
 
 The following outputs have been generated using the this implementation:
